@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-In Rails controller (or from any Ruby app thread entry point):
+In Rails controller before\_filter:
 Date.format = '%m/%d/%Y'
 or
 Date.format = current\_user.date\_format 
@@ -48,3 +48,4 @@ to use : Date.strptime(self, Date.format).to\_s(:db)
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
