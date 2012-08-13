@@ -50,7 +50,7 @@ For example:
 <%= f.text_field :created_on, :value => @user.created\_on ||  @user.created\_on\_before\_type\_cast %>
 
 Date.format can be set to any date format that is parsable by strptime. 
-For example, the following are all valid:
+For example, the following are all valid:<br>
     Date.format = "%m/%d/%Y"<br>
     Date.format = "%d/%m/%Y"<br>
     Date.format = '%Y-%m-%d'<br>
