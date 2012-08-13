@@ -36,10 +36,9 @@ was set as above:
 And then you get parity when a form with this field is posted. 
 Rails will attempt to convert the posted string value of "12/31/2012"
 using Date.\_parse, which DateParity overrides and respects your Date.format. 
-Without DateParity gem, @model.start\_on would end up but, being nil 
-because "12/31/2012" is invalid for Ruby Date.\_parse. 
-
-When date\_parity is required, Date will use the format string stored on Date.format
+Without DateParity gem, @model.start\_on would have ended up nil because 
+"12/31/2012" is invalid argument Ruby Date.\_parse. However, when date\_parity is 
+included, Date will use the format string stored on Date.format
 (if it exist) to correctly parse "12/31/2012", as December 31, 2012, when 
 Date.format = "%m/%d/%Y" 
 
@@ -49,6 +48,15 @@ to explicitly use @model.attribute if it exists. Otherwise, you won't see the fo
 date field:
 For example:
 <%= f.text_field :created_on, :value => @user.created\_on ||  @user.created\_on\_before\_type\_cast %>
+
+Date.format can be set to any date format that is parsable by strptime. 
+For example, the following are all valid:
+    Date.format = "%m/%d/%Y"
+    Date.format = "%d/%m/%Y"
+    Date.format = '%Y-%m-%d'
+    Date.format = '%d.%m.%Y'
+    Date.format = '%Y.%m.%d'
+    Date.format = '%Y/%m/%d'
 
 ## Contributing
 
