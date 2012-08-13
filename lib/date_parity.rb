@@ -1,9 +1,7 @@
 require 'date'
 require 'active_support/core_ext/date/conversions'
 require 'active_support/core_ext/string/conversions'
-
 require "date_parity/version"
-require 'date_parity/core_ext/string'
 require 'date_parity/core_ext/date'
 
 # ActiveSupport provides an implementation of Date.to_s that uses

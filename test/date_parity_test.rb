@@ -25,7 +25,31 @@ class DateParityTest < MiniTest::Unit::TestCase
 
   end
 
+ def test_date_parse
+    date_hash = { :year => 2012, :mon => 8, :mday => 12 }
+
+    Date.format = "%m/%d/%Y"
+    assert_equal date_hash,  Date._parse("08/12/2012")
+
+    Date.format = "%d/%m/%Y"
+    assert_equal date_hash,  Date._parse("12/08/2012")
+
+    Date.format = '%Y-%m-%d'
+    assert_equal date_hash,  Date._parse("2012-08-12")
+
+    Date.format = '%d.%m.%Y'
+    assert_equal date_hash,  Date._parse("12.08.2012")
+
+    Date.format = '%Y.%m.%d'
+    assert_equal date_hash,  Date._parse("2012.08.12")
+
+    Date.format = '%Y/%m/%d'
+    assert_equal date_hash,  Date._parse("2012/08/12")
+  end
+
   def test_string_to_date_respects_format
+    # This works because Rails ActiveSupport provides 
+    # string.to_date, which uses Date._parse
     Date.format = "%m/%d/%Y"
     assert_equal Date.parse("2012-08-12"), "08/12/2012".to_date
 
