@@ -1,10 +1,10 @@
 # DateParity
 
-Consistent date formatting and parsing  per request. Creates parity between date.to\_s and
+Consistent date formatting and parsing for Rails applications. Creates parity between date.to\_s and
  string.to\_date in Rails applications.
 
-This is implemented with a Date.format syntax and usage, similar to Time.zone in rails. Can be 
-set per request (i.e. per user).
+This is implemented with a "Date.format" syntax and usage, similar to "Time.zone" in rails. This can be 
+set per request (i.e. per user) in a controller before or around filter.
 
 ## Installation
 
