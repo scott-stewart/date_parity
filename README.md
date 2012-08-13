@@ -51,12 +51,12 @@ For example:
 
 Date.format can be set to any date format that is parsable by strptime. 
 For example, the following are all valid:
-    Date.format = "%m/%d/%Y"
-    Date.format = "%d/%m/%Y"
-    Date.format = '%Y-%m-%d'
-    Date.format = '%d.%m.%Y'
-    Date.format = '%Y.%m.%d'
-    Date.format = '%Y/%m/%d'
+    Date.format = "%m/%d/%Y"<br>
+    Date.format = "%d/%m/%Y"<br>
+    Date.format = '%Y-%m-%d'<br>
+    Date.format = '%d.%m.%Y'<br>
+    Date.format = '%Y.%m.%d'<br>
+    Date.format = '%Y/%m/%d'<br>
 
 ## Contributing
 
