@@ -1,10 +1,53 @@
-# DateParity
+# Date Parity
 
-Consistent date formatting and parsing for Rails applications. Creates parity between date.to\_s and
- string.to\_date in Rails applications.
+Date formatting and parsing per request in Rails with parity between date.to\_s.and string.to\_date.
 
-This is implemented with a "Date.format" syntax and usage, similar to "Time.zone" in rails. This can be 
-set per request (i.e. per user) in a controller before or around filter.
+Rails already has some great Date formatting and parsing options available. For example, Date.DATE\_FORMATS makes it easy to configure and reuse common formats for your application. But, other then the :default it require an explicit field.to\_s(:format) to be applied. Additionally, nothing happens automatically when parsing those dates back from user edits. This generally require some explicit steps per field in your model or controller. 
+
+Rails also provides the ability to localize your Date formats. But, that requires decisions made for all users in a particular locale.
+
+Often, we need to allow users, companies, organizations, etc. the ability to choose preferred date formats. Both of the Rails standard approaches using Date.DATE\_FORMATS or localization fall short at making that easy. You end up writing a lot helpers around date fields, and code to normalize posted date values. 
+ 
+This is where date\_parity helps. It is implemented by setting a `Date.format` string, similar to a per user `Time.zone` in Rails. This can be set per request (i.e. per user) in a controller's before\_filter or around\_filter.
+
+For example:
+```ruby
+Date.format = "%m/%d/%Y"
+date = "12/31/2012".to_date
+=> Mon, 31 Dec 2012
+date.to_s
+=> "12/31/2012"
+
+Date.format = "%d/%m/%Y"
+date = "31/12/2012".to_date
+=> Mon, 31 Dec 2012
+date.to_s
+=> "31/12/2012"
+
+Date.format = '%Y-%m-%d'
+date = "2012-12-31".to_date
+=> Mon, 31 Dec 2012
+date.to_s
+=> "2012-12-31"
+
+Date.format = '%d.%m.%Y'
+date = "31.12.2012".to_date
+=> Mon, 31 Dec 2012
+date.to_s
+=> "31.12.2012"
+
+Date.format = '%Y.%m.%d'
+date = "2012.12.31".to_date
+=> Mon, 31 Dec 2012
+date.to_s
+=> "2012.12.31"
+
+Date.format = '%Y/%m/%d'
+date = "2012/12/31".to_date
+=> Mon, 31 Dec 2012
+date.to_s
+=> "2012/12/31"
+```
 
 ## Installation
 
@@ -22,41 +65,37 @@ Or install it yourself as:
 
 ## Usage
 
-In Rails controller before\_filter:
-Date.format = '%m/%d/%Y'
+In a Rails controller before\_filter:
+```Date.format = '%m/%d/%Y'```
 
-or from a persisted field that stores the desired format:
-Date.format = current\_user.date\_format 
+Generally, you will want to set that string based on user preference, as in:
+```Date.format = current_user.date_format```
 
-In any view assuming @model\_created\_on is a date, and Date.format
-was set as above:
-<%=@modele.created\_on  %>
-=> 12/31/2012 
+Then in any view assuming @model\_started\_on is a date field, and Date.format was set as above to '%m/%d/%Y':
+```ruby
+<%=@modele.started_on  %>
+#=> '12/31/2012' 
+```
 
-And then you get parity when a form with this field is posted. 
-Rails will attempt to convert the posted string value of "12/31/2012"
-using Date.\_parse, which DateParity overrides and respects your Date.format. 
-Without DateParity gem, @model.start\_on would have ended up nil because 
-"12/31/2012" is invalid argument Ruby Date.\_parse. However, when date\_parity is 
-included, Date will use the format string stored on Date.format
-(if it exist) to correctly parse "12/31/2012", as December 31, 2012, when 
-Date.format = "%m/%d/%Y" 
+And then you get parity when a form with this field is posted. Rails will attempt to convert the posted string value of "12/31/2012" using Date.\_parse, which DateParity overrides and respects your Date.format.  
 
-Note: Rails text\_field form helper uses @model.attribute\before\_type\_cast by default.
-When using date\_parity on plain text fields, you will probably want to set your value
-to explicitly use @model.attribute if it exists. Otherwise, you won't see the formatted
-date field:
-For example:
-<%= f.text_field :created_on, :value => @user.created\_on ||  @user.created\_on\_before\_type\_cast %>
+Without the date\_parity gem, @model.start\_on would have ended up nil because "12/31/2012" is an invalid argument for ruby Date.\_parse. However, when date\_parity is included, Date will use the format string set on Date.format to correctly parse "12/31/2012", as December 31, 2012, when Date.format = "%m/%d/%Y". 
 
-Date.format can be set to any date format that is parsable by strptime. 
-For example, the following are all valid:<br>
-    Date.format = "%m/%d/%Y"<br>
-    Date.format = "%d/%m/%Y"<br>
-    Date.format = '%Y-%m-%d'<br>
-    Date.format = '%d.%m.%Y'<br>
-    Date.format = '%Y.%m.%d'<br>
-    Date.format = '%Y/%m/%d'<br>
+Note: Rails text\_field form helper uses ```@model.attribute_before_type_cast``` by default.  When using date\_parity on plain text fields, you will probably want to set your value to explicitly use @model.attribute if it exists. Otherwise, you won't see the formatted date field: For example:
+```ruby 
+<%= f.text_field :start_on, :value => @user.started_on ||  @user.started_on_before_type_cast %>
+```
+
+Date.format can be set to any date format that can be parsed by strptime. 
+For example, the following are all valid:
+```ruby
+Date.format = "%m/%d/%Y"<br>
+Date.format = "%d/%m/%Y"<br>
+Date.format = '%Y-%m-%d'<br>
+Date.format = '%d.%m.%Y'<br>
+Date.format = '%Y.%m.%d'<br>
+Date.format = '%Y/%m/%d'<br>
+```
 
 ## Contributing
 
