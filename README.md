@@ -89,12 +89,12 @@ Note: Rails text\_field form helper uses ```@model.attribute_before_type_cast```
 Date.format can be set to any date format that can be parsed by strptime. 
 For example, the following are all valid:
 ```ruby
-Date.format = "%m/%d/%Y"<br>
-Date.format = "%d/%m/%Y"<br>
-Date.format = '%Y-%m-%d'<br>
-Date.format = '%d.%m.%Y'<br>
-Date.format = '%Y.%m.%d'<br>
-Date.format = '%Y/%m/%d'<br>
+Date.format = "%m/%d/%Y"
+Date.format = "%d/%m/%Y"
+Date.format = '%Y-%m-%d'
+Date.format = '%d.%m.%Y'
+Date.format = '%Y.%m.%d'
+Date.format = '%Y/%m/%d'
 ```
 
 ## Contributing
