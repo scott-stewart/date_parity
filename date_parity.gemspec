@@ -7,8 +7,8 @@ Gem::Specification.new do |gem|
 
   gem.author       = 'Scott Stewart'
   gem.email         = 'scottpstewart@gamil.com'
-  gem.description   = 'Consistent date formatting done simple'
-  gem.summary       = 'Consistent date formatting done simple'
+  gem.description   = 'Rails Date formatting and parsing with full parity between date.to_s.and string.to_date per request.'
+  gem.summary       = 'Rails Date formatting and parsing with full parity between date.to_s.and string.to_date per request.'
   gem.homepage      = ""
 
   gem.add_dependency 'activesupport', '>= 3.2'
