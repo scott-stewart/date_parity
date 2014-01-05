@@ -95,12 +95,20 @@ class DateParityTest < MiniTest::Unit::TestCase
     end
   end
 
-  def full_date_parity
+  def test_full_date_parity
     Date.format = "%m/%d/%Y"
     date = Date.parse_without_date_parity_format("2012-12-31")
     assert date, date.to_s.to_date
 
     assert "12/31/2012", "12/31/2012".to_date.to_s
+  end
+
+  def test__parse_also_respects_data_format
+    Date.format = "%m/%d/%Y"
+    date_parts = Date._parse_without_date_parity_format("1/25/2014")
+    assert date_parts[:year], 2014
+    assert date_parts[:mon], 1
+    assert date_parts[:mday], 25
   end
 
 end
