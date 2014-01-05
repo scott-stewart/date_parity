@@ -1,12 +1,12 @@
 # Date Parity
 
-Date formatting and parsing per request in Rails with parity between date.to\_s.and string.to\_date.
+Date formatting and parsing per request in Rails with parity between date.to\_s.and string.to\_date. Provides a seamless mechanism for allowing custom date format per request, implemented similar to Time.zone.
 
-Rails has some great Date formatting and parsing options available. But, it still requires a lot of helping code to consistently parse and display dates in a particular format . For example, Date.DATE\_FORMATS makes it easy to configure and reuse common formats for your application. But, other then the :default it require an explicit field.to\_s(:format) to be applied. Additionally, nothing happens automatically when parsing those dates back from user edits. This generally require some explicit steps per field in your model or controller. 
+Rails has great Date formatting and parsing options available. But, it requires a lot of helping code to consistently parse and display dates in a particular format per request. Rails makes this easy for Time.zone parsing, but Date parsing generally requires additional manual parsing code. For example, Date.DATE\_FORMATS makes it easy to configure and reuse common formats for your application. But, other then the :default it require an explicit field.to\_s(:format) to be applied. More importantly, nothing automatically happens when parsing those dates back from user edits.
 
 Rails also provides the ability to localize your Date formats. But, that requires decisions made for all users in a particular locale.
 
-Often, we need to allow users, companies, organizations, etc. the ability to choose preferred date formats. Both of the Rails standard approaches using Date.DATE\_FORMATS or localization fall short at making that easy; especially when parsing user form posted date strings. You end up writing a lot helpers around date fields, and code to normalize posted date values. 
+Often, we need to allow users, companies, organizations, etc. the ability to choose preferred date formats. Both of the Rails standard approaches using Date.DATE\_FORMATS or localization fall short at making that easy; especially when parsing user form posted date strings. You end up writing a lot helpers around date fields, and code to normalize posted date values. This generally require explicit steps per field in your model or controller to manually parse; i.e. Date.strptime("1/15/2013", "%m/%d/%Y")
  
 This is where date\_parity helps. It is implemented by setting a `Date.format` string, similar to a per user `Time.zone` in Rails. This can be set per request (i.e. per user) in a controller's before\_action or around\_action.
 
