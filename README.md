@@ -80,9 +80,9 @@ Then in any view assuming @model\_started\_on is a date field, and Date.format w
 #=> '12/31/2012' 
 ```
 
-And then you get parity when a form with this field is posted. Rails will attempt to convert the posted string value of "12/31/2012" using Date.\parse, which DateParity overrides and respects your Date.format.  
+And then you get parity when a form with this field is posted. Rails will attempt to convert the posted string value of "12/31/2012" using Date.\parse, which DateParity overrides and respects your Date.format.
 
-Without the date\_parity gem, @model.start\_on would have ended up nil because "12/31/2012" is an invalid argument for ruby Date.\parse. However, when date\_parity is included, Date will use the format string set on Date.format to correctly parse "12/31/2012", as December 31, 2012, when Date.format = "%m/%d/%Y". 
+Without the date\_parity gem, @model.start\_on would have ended up nil because "12/31/2012" is an invalid argument for ruby Date.parse. However, when date\_parity is included, Date will use the format string set on Date.format to correctly parse "12/31/2012", as December 31, 2012, when Date.format = "%m/%d/%Y". 
 
 Note: Rails text\_field form helper uses ```@model.attribute_before_type_cast``` by default.  When using date\_parity on plain text fields, you will probably want to set your value to explicitly use @model.attribute if it exists. Otherwise, you won't see the formatted date field: For example:
 ```ruby 
