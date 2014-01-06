@@ -1,5 +1,4 @@
 require 'date_parity/test_helper'
-require 'debugger'
 
 class DateParityTest < MiniTest::Unit::TestCase
 
